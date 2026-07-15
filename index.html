@@ -522,9 +522,6 @@
       <label for="entryPassphrase">Passphrase</label>
       <div class="pw-row">
         <input type="text" id="entryPassphrase" placeholder="Enter or generate one">
-        <button id="togglePassphraseVisBtn" title="Show/hide" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
-        </button>
         <button id="copyPassphraseBtn" title="Copy" type="button">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
         </button>
@@ -875,7 +872,6 @@
     $('entryPassphrase').value = entry ? (entry.passphrase || '') : '';
     $('entryNotes').value = entry ? entry.notes : '';
     $('entryPass').type = 'password';
-    $('entryPassphrase').type = 'password';
     $('deleteEntryBtn').classList.toggle('hidden', !entry);
     $('genPanel').classList.add('hidden');
     $('genPassphrasePanel').classList.add('hidden');
@@ -903,10 +899,6 @@
     catch(e){ showToast('Copy failed — select manually'); }
   });
 
-  $('togglePassphraseVisBtn').addEventListener('click', ()=>{
-    const f = $('entryPassphrase');
-    f.type = (f.type === 'password') ? 'text' : 'password';
-  });
   $('copyPassphraseBtn').addEventListener('click', async ()=>{
     if (!$('entryPassphrase').value){ showToast('Nothing to copy'); return; }
     try{ await navigator.clipboard.writeText($('entryPassphrase').value); showToast('Passphrase copied'); }
